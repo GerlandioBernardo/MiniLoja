@@ -1,0 +1,98 @@
+*{
+    box-sizing: border-box;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.form{
+    background-color: white;
+    width: auto;
+    height: auto;
+    padding: 23px;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.logoApp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+.iconLogo{
+    width: 40px;
+}
+.nameApp{
+    font-style: italic;
+    font-size: 19px;
+}
+.firstName{
+    color:#9ca3af;
+}
+.secondName{
+    color: #93c5fd;
+    font-weight: 800;   
+}
+.label{
+    color: #83afe2;
+    font-weight: bold;
+}
+.input {
+    width: 280px;
+    height: 45px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-top: 5px;
+    padding-left: 10px;
+    color: rgb(66, 66, 66);
+}
+
+.input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 4px rgba(74, 144, 226, 0.5);
+}
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button {
+  width: 280px;
+  height: 43px;
+  background-color: #83afe2;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 18px;
+}
+
+.button:hover {
+  background-color: #549ce4;
+}
+.textSmall{
+    font-size: 14px;
+    color: rgb(75, 74, 74);
+    padding-top: 1rem;
+    text-align: right;
+}
+.navLink {
+  color: #60a5fa;      
+  text-decoration: none;
+  font-weight: normal;
+}
+.navLink, .navLinkActive:hover{
+    color: #6ca9ee;
+}
+.navLinkActive {
+  color: #5387c2;
+  font-weight: bold;
+}
