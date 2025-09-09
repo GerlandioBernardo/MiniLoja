@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import '../../styles/styles.css';
 import iconShopVirtual from "../../assets/loja-virtual.png";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+    const [cpf, setCpf] = useState("");
 
     function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
+        const cpfNumbers = cpf.replace(/\D/g, "");
 
         if (username.trim().length < 3) {
             toast.error("Username must be at least 3 characters long");
+            return;
+        }
+        if(cpfNumbers.length !== 11){
+            toast.error("Enter a valid CPF with 11 digits");
             return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -28,6 +34,7 @@ export default function Signup() {
         setEmail("");
         setUsername("");
         setPassword("");
+        setCpf("");
     }
 
     return (
@@ -53,6 +60,14 @@ export default function Signup() {
                         onChange={(event) => setUsername(event.target.value)}
                     /><br></br>
 
+                     <label className="signup-label">CPF</label><br></br>
+                    <input className="signup-input" type="text"
+                        placeholder="Enter your cpf"
+                        required
+                        value={cpf}
+                        onChange={(event) => setCpf(event.target.value)}
+                    /><br></br>
+
                     <label className="signup-label">E-mail</label><br></br>
                     <input className="signup-input" type="text"
                         placeholder="Enter your email"
@@ -76,13 +91,10 @@ export default function Signup() {
 
                 <p className="signup-textSmall">
                     Already have an account?{" "}
-                    <NavLink
-                        to="/login"
-                        className={({ isActive }) =>
-                            isActive ? "signup-navLinkActive" : "signup-navLink"
-                        }>
+                    <Link to="/login" className="signup-link"
+                        >
                         Sign In
-                    </NavLink>
+                    </Link>
                 </p>
             </div>
         </section>

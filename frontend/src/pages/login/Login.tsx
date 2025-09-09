@@ -1,6 +1,6 @@
 import styles from "./Login.module.css";
 import iconShopVirtual from "../../assets/loja-virtual.png";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
 export default function Login() {
@@ -59,13 +59,9 @@ export default function Login() {
         
         <p className={styles.textSmall}>
           Don't have an account? {" "}
-          <NavLink
-            to="/signup"
-            className={({ isActive }) =>
-              isActive ? styles.navLinkActive : styles.navLink
-            }>
+          <Link to="/signup" className={styles.linkSignup}>
             Sign Up
-          </NavLink>
+          </Link>
         </p>
       </div>
     </section>
