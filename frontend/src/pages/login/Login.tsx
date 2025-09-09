@@ -53,14 +53,14 @@ export default function Login() {
           /><br></br>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.button} type="submit">Sign In</button>
+            <button className={styles.button} type="submit">Sign in</button>
           </div>
         </form>
         
         <p className={styles.textSmall}>
           Don't have an account? {" "}
           <NavLink
-            to="#"
+            to="/signup"
             className={({ isActive }) =>
               isActive ? styles.navLinkActive : styles.navLink
             }>

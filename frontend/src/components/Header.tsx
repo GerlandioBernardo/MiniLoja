@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <header className={`bg-[#ffffff] flex justify-between items-center p-2 
       transition-colors ${dark ? "bg-gray-800" : "bg-[#f7f7f8]"}`}>
-      <NavLink to="#">
+      <NavLink to="/">
         <div className='flex items-center pl-10 gap-1.5'>
           <div>
             <img className='w-10' src={iconShopVirtual} alt='Icon Shop Virtual' />
@@ -27,7 +27,7 @@ export default function Header() {
       <div className='pr-4 flex items-center gap-7'>
 
         <NavLink
-          to="#"
+          to="/login"
           className="bg-green-400 text-white pt-1.5 pb-1.5 pl-2.5 pr-2.5 rounded
           font-bold cursor-pointer hover:bg-green-500"
         >Sign In

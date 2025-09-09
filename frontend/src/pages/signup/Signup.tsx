@@ -77,7 +77,7 @@ export default function Signup() {
                 <p className="signup-textSmall">
                     Already have an account?{" "}
                     <NavLink
-                        to="#"
+                        to="/login"
                         className={({ isActive }) =>
                             isActive ? "signup-navLinkActive" : "signup-navLink"
                         }>
