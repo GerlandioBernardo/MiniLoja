@@ -44,7 +44,7 @@ export async function signup(req: Request, res: Response){
         })
 
         res.status(200).json({
-            user,
+            user: {...user, password: undefined},
             massage: "User registered successfully",
             token: generateToken(user.id)
         })
