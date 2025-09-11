@@ -47,4 +47,13 @@ export async function addToCart({userId, productId}: typeCart){
     return cart;
 }
 
+export async function deleteToCart(cartId: string){
+    const cart = await prisma.cart.delete({
+        where:{
+            id: cartId
+        }
+    })
+    return cart;
+}
+
 

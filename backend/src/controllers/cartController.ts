@@ -8,17 +8,18 @@ export async function addToCart(req: Request, res: Response, nex: NextFunction) 
         const userId = id;
 
         if(!productId) return;
+
+        const existsProduct = await cartService.findProductById(userId, productId);
+
+        if(existsProduct){
+            res.status(409).json({message: "Product already added to cart"});
+            return;
+        }
         
         const updateStockProduct = await cartService.updateStockProduct(productId, 1);
 
         if (typeof updateStockProduct === "string") {
             res.status(400).json({ message: updateStockProduct });
-            return;
-        }
-        const existsProduct = await cartService.findProductById(userId, productId);
-
-        if(existsProduct){
-            res.status(409).json({message: "Product already added to cart"});
             return;
         }
 
@@ -31,6 +32,27 @@ export async function addToCart(req: Request, res: Response, nex: NextFunction) 
         });
     } catch (error) {
         console.log(error);
+        res.status(500).json({message: "Internal Server Error"});
+    }
+}
+
+export async function deleteToCart(req: Request, res:Response){
+    try {
+       const {cartId} = req.params;
+
+       if(!cartId) return;
+
+       const cart = await cartService.deleteToCart(cartId);
+
+       if(!cart){
+            res.status(400).json({message: "Error deleting cart"});
+            return;
+       }
+
+       res.status(200).json({message: "Cart deleted successfully"});
+        
+    } catch (error) {
+         console.log(error);
         res.status(500).json({message: "Internal Server Error"});
     }
 }
