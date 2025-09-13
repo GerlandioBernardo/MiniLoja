@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import iconShopVirtual from "../assets/loja-virtual.png";
-import {NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useAuth } from '../hook/useAuth';
+import {FiLogOut, FiUser} from "react-icons/fi";
 
 export default function Header() {
   const [dark, setDark] = useState(false);
+  const { user, token, logout } = useAuth();
 
   function toggleTheme() {
     setDark(!dark);
@@ -26,12 +29,31 @@ export default function Header() {
       </NavLink>
       <div className='pr-4 flex items-center gap-7'>
 
-        <NavLink
-          to="/login"
-          className="bg-green-400 text-white pt-1.5 pb-1.5 pl-2.5 pr-2.5 rounded
+        {user && token ? (
+          <div className='flex gap-5'>
+            <button
+            onClick={logout}
+            className='flex items-center gap-1.5 bg-[#e53e3e] text-white
+            pt-1.5 pb-1.5 pl-2.5 pr-2.5 cursor-pointer rounded font-bold hover:bg-[#f15c5c] '
+          >
+            <FiLogOut /> Logout
+          </button>
+          <NavLink
+            to="/profile"
+            className=" flex items-center gap-1.5 bg-green-400 text-white pt-1.5 pb-1.5 pl-2.5 pr-2.5 
+            rounded font-bold cursor-pointer hover:bg-green-500"
+          >
+          <FiUser/> Profile
+          </NavLink>
+          </div>
+        ) : (
+          <NavLink
+            to="/login"
+            className="bg-green-400 text-white pt-1.5 pb-1.5 pl-2.5 pr-2.5 rounded
           font-bold cursor-pointer hover:bg-green-500"
-        >Sign In
-        </NavLink>
+          >Sign In
+          </NavLink>
+        )}
 
         <div
           onClick={toggleTheme}

@@ -1,13 +1,49 @@
 import { FaStar, FaStarHalfAlt, FaShoppingCart } from "react-icons/fa";
 import { AiOutlineStar } from "react-icons/ai";
 import Header from "../../components/Header";
-import { products } from "../../mock/Products";
+import { useEffect, useState } from "react";
+import type { Product } from "../../types/TypeProduct";
+import { getProducts } from "../../services/productService";
+import { toast } from "react-toastify";
+import { addToCart } from "../../services/userService";
 
 export default function Home() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  function addToCart(id: number){
-    const item = products.find(product => product.id === id);
-    console.log(item?.title);
+
+  useEffect(()=> {
+    async function fetchProducts(){
+      try {
+        const data = await getProducts();
+        setProducts(data);
+      } catch (error) {
+        toast.error("Error when searching for products");
+        console.log(error);
+      }
+      finally{
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  if(loading){
+   return (
+    <div className="flex justify-center items-center h-[100vh]">
+      <p className="font-bold text-gray-400">Loading products...</p>
+    </div>
+   )
+  }
+
+  async function handleToCart(productId: string){
+    try {
+      const res = await addToCart(productId);
+      toast.success(res.data.message);
+    } catch (error: any) {
+      toast.error(error.response?.data?.message);
+      console.log(error);
+    }
   }
 
   return (
@@ -44,7 +80,7 @@ export default function Home() {
 
                 <div className='mt-5'>
                   <button 
-                  onClick={()=> addToCart(product.id)}
+                  onClick={()=>  handleToCart(product.id)}
                   className='bg-blue-400 flex items-center text-white gap-2 px-4 
                   py-2 rounded cursor-pointer hover:bg-blue-500'>
                     <FaShoppingCart />

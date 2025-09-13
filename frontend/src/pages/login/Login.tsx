@@ -1,21 +1,37 @@
 import styles from "./Login.module.css";
 import iconShopVirtual from "../../assets/loja-virtual.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { loginUser } from "../../services/authService";
+import { useAuth } from "../../hook/useAuth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(event: React.FormEvent){
+  const {login} = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogin(event: React.FormEvent){
     event.preventDefault();
 
     if (!email || !password) {
+      toast.error("To log in, it is required to fill in all the fields.");
       return;
     }
 
-    console.log("Email: ", email);
-    console.log("Password: ", password)
+    try {
+      const res = await loginUser(email, password);
+      login(res.data.user, res.data.token);
+      toast.success(res.data.message)
+
+      navigate("/");
+      
+    } catch (error: any) {
+      toast.error(error.response?.data?.message);
+      console.log(error);
+    }
 
     setEmail("");
     setPassword("");
@@ -35,9 +51,9 @@ export default function Login() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleLogin} >
           <label className={styles.label}>E-mail</label><br></br>
-          <input className={styles.input} type="text" 
+          <input className={styles.input} type="email" 
           placeholder="Enter your email" 
           required 
           value={email}

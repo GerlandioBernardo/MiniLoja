@@ -3,6 +3,7 @@ import Home from '../pages/home/Home';
 import Login from '../pages/login/Login';
 import Signup from '../pages/signup/Signup';
 import Profile from '../pages/profile/Profile';
+import Cart from "../pages/cart/Cart";
 
 export default function Router() {
   return (
@@ -11,6 +12,7 @@ export default function Router() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/cart' element={<Cart/>}/>
     </Routes>
   )
 }

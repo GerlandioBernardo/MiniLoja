@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import '../../styles/styles.css';
 import iconShopVirtual from "../../assets/loja-virtual.png";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { toast } from 'react-toastify';
+import { useAuth } from '../../hook/useAuth';
+import { signupUser } from '../../services/authService';
+
+
 
 export default function Signup() {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
     const [cpf, setCpf] = useState("");
 
-    function handleSubmit(event: React.FormEvent) {
+    const {signup} = useAuth();
+    const navigate = useNavigate();
+
+    async function handleRegister(event: React.FormEvent) {
         event.preventDefault();
         const cpfNumbers = cpf.replace(/\D/g, "");
 
@@ -30,6 +38,18 @@ export default function Signup() {
             toast.error("Password must be at least 6 characters long");
             return;
         }
+
+        try {
+            const res = await signupUser(username, cpf, email, password);
+            signup(res.data.user, res.data.token);
+            toast.success(res.data.massage);
+
+            navigate("/");
+        } catch (error: any) {
+            toast.error(error.response?.data?.message);
+            console.log(error);
+        }
+
 
         setEmail("");
         setUsername("");
@@ -51,7 +71,7 @@ export default function Signup() {
                     </div>
                 </div>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleRegister}>
                     <label className="signup-label">Username</label><br></br>
                     <input className="signup-input" type="text"
                         placeholder="Enter your name"
