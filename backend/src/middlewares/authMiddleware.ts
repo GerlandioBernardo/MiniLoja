@@ -2,10 +2,11 @@ import type {Request, Response, NextFunction} from "express";
 import dotenv from "dotenv";
 import type {JwtPayload} from "jsonwebtoken";
 import jwt from "jsonwebtoken";
+import type { AuthRequest } from "../types/auth.js";
 
 dotenv.config();
 
-export async function authMiddleware(req: Request, res: Response, next: NextFunction){
+export async function authMiddleware(req: AuthRequest, res: Response, next: NextFunction){
     const authHeader = req.headers.authorization;
 
     if(!authHeader){
@@ -21,7 +22,7 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
             return;
         };
 
-        req.body.id = (decoded as JwtPayload).id;
+        req.user = { id: (decoded as JwtPayload).id as string};
         next();
     } )
 }

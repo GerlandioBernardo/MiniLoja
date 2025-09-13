@@ -8,6 +8,6 @@ const userRouter = Router();
 userRouter.delete('/', authMiddleware, deleteUser);
 
 // rotas para produtos
-userRouter.use('/cart', cartRouter)
+userRouter.use('/cart', cartRouter);
 
 export default userRouter;

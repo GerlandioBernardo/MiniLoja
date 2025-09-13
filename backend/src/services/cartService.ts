@@ -27,6 +27,28 @@ export async function updateStockProduct(id: string, quantity: number){
     })
 }
 
+export async function updateStockProductDelete(id: string, quantity: number){
+    const product = await prisma.product.findFirst({
+        where:{
+            id
+        }
+    });
+
+    if(!product){
+        return "Product not found";
+    }
+
+    return await prisma.product.update({
+        where:{
+            id
+        },
+        data:{
+            stock: {increment: quantity}
+        }
+    })
+}
+
+
 export async function findProductById(userId: string, productId: string){
     const existsProduct =  await prisma.cart.findFirst({
         where:{ 
@@ -53,6 +75,18 @@ export async function deleteToCart(cartId: string){
             id: cartId
         }
     })
+    return cart;
+}
+
+export async function getUserCart(userId: string){
+    const cart = await prisma.cart.findMany({
+        where:{
+            userId
+        },
+        include:{
+            product: true
+        }
+    });
     return cart;
 }
 
