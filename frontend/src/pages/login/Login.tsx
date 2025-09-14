@@ -27,14 +27,13 @@ export default function Login() {
       toast.success(res.data.message)
 
       navigate("/");
-      
     } catch (error: any) {
-      toast.error(error.response?.data?.message);
+      toast.error(error.response?.data?.message)
       console.log(error);
     }
 
-    setEmail("");
-    setPassword("");
+    // setEmail("");
+    // setPassword("");
   }
 
   return (
@@ -69,7 +68,7 @@ export default function Login() {
           /><br></br>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.button} type="submit">Sign in</button>
+            <button className={styles.button} type="submit" >Sign in</button>
           </div>
         </form>
         

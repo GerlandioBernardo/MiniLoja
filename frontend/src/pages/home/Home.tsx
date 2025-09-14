@@ -44,6 +44,12 @@ export default function Home() {
       toast.error(error.response?.data?.message);
       console.log(error);
     }
+
+    setProducts(prev =>
+      prev.map(p => 
+        p.id === productId ? { ...p, stock: p.stock - 1 } : p
+      )
+    )
   }
 
   return (
@@ -81,10 +87,12 @@ export default function Home() {
                 <div className='mt-5'>
                   <button 
                   onClick={()=>  handleToCart(product.id)}
-                  className='bg-blue-400 flex items-center text-white gap-2 px-4 
-                  py-2 rounded cursor-pointer hover:bg-blue-500'>
+                  disabled={product.stock === 0}
+                  className={`bg-blue-400 flex items-center text-white gap-2 px-4 
+                  py-2 rounded transition
+                  ${product.stock === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-500 cursor-pointer"} `}>
                     <FaShoppingCart />
-                    Adicionar
+                    {product.stock === 0 ? "Indisponível" : "Adicionar" }
                   </button>
                 </div>
               </div>
