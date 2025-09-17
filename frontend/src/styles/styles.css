@@ -1,0 +1,97 @@
+*{
+    box-sizing: border-box;
+}
+
+.signup-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.signup-form{
+    background-color: white;
+    width: auto;
+    height: auto;
+    padding: 23px;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.signup-logoApp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.signup-logo{
+    width: 40px;
+}
+.signup-nameApp{
+    font-style: italic;
+    font-size: 19px;
+}
+.signup-firstName{
+    color:#9ca3af;
+}
+.signup-secondName{
+    color: #93c5fd;
+    font-weight: 800;   
+}
+.signup-label{
+    color: #83afe2;
+    font-weight: bold;
+}
+.signup-input {
+    width: 280px;
+    height: 45px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-top: 5px;
+    padding-left: 10px;
+    color: rgb(66, 66, 66);
+}
+
+.signup-input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 4px rgba(74, 144, 226, 0.5);
+}
+.signup-container-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup-button {
+  width: 280px;
+  height: 43px;
+  background-color: #83afe2;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 18px;
+}
+
+.signup-button:hover {
+  background-color: #549ce4;
+}
+.signup-textSmall{
+    font-size: 14px;
+    color: rgb(75, 74, 74);
+    padding-top: 1rem;
+    text-align: right;
+}
+.signup-link {
+  color: #60a5fa;      
+  text-decoration: none;
+  font-weight: normal;
+}
+.signup-link:hover{
+    color: #1669bb;
+}
