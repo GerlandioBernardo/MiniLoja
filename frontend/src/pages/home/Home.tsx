@@ -56,7 +56,8 @@ export default function Home() {
     <div>
       <Header />
       <section className='flex justify-center items-center mt-10'>
-        <div className='grid grid-cols-4 justify-items-center gap-7 pl-5 pr-5'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+         justify-items-center gap-7 pl-5 pr-5'>
           
           {products.map(product => {
             const fullStars = Math.floor(product.rating);
@@ -64,7 +65,7 @@ export default function Home() {
             const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
             return (
-              <div key={product.id} className='bg-white h-auto rounded-lg p-3 shadow-md'>
+              <div key={product.id} className='bg-white h-auto rounded-lg p-3 shadow-md max-w-[310px]'>
                 <div>
                   <img src={product.image} alt={product.title} />
                 </div>

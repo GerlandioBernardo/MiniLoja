@@ -56,14 +56,15 @@ export default function Cart() {
               <p className="text-gray-500 text-lg">Your cart is empty</p>
             </div>
           ) : (
-           <div className='grid grid-cols-4 justify-items-center gap-7 pl-5 pr-5'>
+           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+            justify-items-center gap-7 pl-5 pr-5'>
               {products.map(cart => {
                 const fullStars = Math.floor(cart.product.rating);
                 const halfStar = cart.product.rating % 1 >= 0.5;
                 const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
                 return (
-                  <div key={cart.product.id} className='bg-white h-auto rounded-lg p-3 shadow-md'>
+                  <div key={cart.product.id} className='bg-white h-auto rounded-lg p-3 shadow-md max-w-[310px]'>
                     <div>
                       <img src={cart.product.image} alt={cart.product.title} />
                     </div>
@@ -93,8 +94,6 @@ export default function Cart() {
                       </button>
 
                       <button
-
-                        onClick={() => handleDeleteToCart(cart.id, cart.product.id)}
                         className='bg-green-500 flex items-center text-white gap-2 px-4 
                   py-1.5 rounded cursor-pointer hover:bg-green-600'>
                         <FaCheck />
