@@ -2,25 +2,34 @@ import Header from '../../components/Header'
 import iconProfile from "../../assets/homem.png";
 import { FaTrash, FaShoppingCart } from "react-icons/fa";
 import { useAuth } from '../../hook/useAuth';
-import { deleteUserAccount, getUserCart } from '../../services/userService';
-import {Link, useNavigate} from  "react-router-dom";
+import { deleteUserAccount } from '../../services/userService';
+import {useNavigate} from "react-router-dom";
 import { toast } from 'react-toastify';
+
+import { 
+  PageContainer,
+  Card, 
+  ProfileImageContainer, 
+  ButtonGroup, 
+  UserName,
+  Button, 
+  UserInfo,StyledLink } from "./Profile.styles";
 
 export default function Profile() {
 
-  const {user, logout} = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  function maskCpf(cpf: string | undefined){
-    if(!cpf) return null;
+  function maskCpf(cpf: string | undefined) {
+    if (!cpf) return null;
 
     const lastTwo = cpf.slice(-2);
-     return `***.***.***-${lastTwo}`;
+    return `***.***.***-${lastTwo}`;
   }
-  
-  async function handleDeleteAccount(){
+
+  async function handleDeleteAccount() {
     try {
-      
+
       const res = await deleteUserAccount();
       logout();
       navigate("/signup");
@@ -35,51 +44,33 @@ export default function Profile() {
   return (
     <div>
       <Header />
-      <section className='flex justify-center items-center h-[100vh]'>
-        <div key={user?.id} className='bg-white shadow-md h-auto w-[300px] grid justify-items-center rounded' >
-          <div className='w-29 h-29 rounded-full bg-[#C7C7C7] mt-5 flex
-           justify-center items-center'>
-            <img src={iconProfile} alt="Image Profile" className='w-17' />
-          </div>
+      <PageContainer>
+        <Card key={user?.id}>
+          <ProfileImageContainer>
+            <img src={iconProfile} alt="Image Profile" />
+          </ProfileImageContainer>
+          <UserName>{user?.name}</UserName>
 
-          <div className="mt-3">
-            <h1 className="font-semibold text-gray-800 text-lg tracking-wide">
-              {user?.name}
-            </h1>
-          </div>
-          <div className="bg-white w-[265px] h-[40px] flex items-center justify-center 
-            mt-4 text-gray-700 rounded border border-gray-300 shadow-sm">
-            {user?.email}
-          </div>
-          <div className="bg-white w-[265px] h-[40px] flex items-center justify-center 
-            mt-4 text-gray-700 rounded border border-gray-300 shadow-sm">
-              {maskCpf(user?.cpf)}
-          </div>
+          <UserInfo>{user?.email}</UserInfo>
+          <UserInfo>{maskCpf(user?.cpf)}</UserInfo>
 
-          <div className='mt-5 mb-5 flex gap-4'>
-            <button
-            onClick={handleDeleteAccount}
-              className='bg-red-500 flex items-center text-white gap-2 px-4 
-                  py-1.5 rounded cursor-pointer transition-colors ease-in-out
-                  duration-200 transform hover:-translate-y-[1px] hover:scale-[1.01]
-                   hover:bg-red-600'>
+          <ButtonGroup>
+            <Button variant='delete' onClick={handleDeleteAccount}>
               <FaTrash />
               Delete
-            </button>
-            <Link
-            to="/cart"
-              className='bg-green-600 flex items-center text-white gap-2 px-4 
-                  py-1.5 rounded cursor-pointer transition-colors ease-in-out
-                  duration-200 transform hover:-translate-y-[1px] hover:scale-[1.01]
-                   hover:bg-green-700'>
-              <FaShoppingCart />
-              View Cart
-            </Link>
-          </div>
 
-        </div>
+            </Button>
 
-      </section>
+            <StyledLink to="/cart" variant="cart">
+              <FaShoppingCart /> View Cart
+            </StyledLink>
+          </ButtonGroup>
+
+        </Card>
+
+      </PageContainer>
     </div>
+
+
   )
 }
